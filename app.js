@@ -57,8 +57,8 @@ fetch(urlResumo)
     document.getElementById("backlog").innerText =
       formatarMoeda(limparNumero(valores["backlog"]));
   });
-  const percentualMes = Number((valores["percentual_mes"] || "0").replace(",", ".")) || 0;
-const percentualAcumulado = Number((valores["percentual_acumulado"] || "0").replace(",", ".")) || 0;
+const percentualMes = limparNumero(valores["percentual_mes"]);
+const percentualAcumulado = limparNumero(valores["percentual_acumulado"]);
 
 const mesAltura = Math.min(percentualMes > 1 ? percentualMes : percentualMes * 100, 100);
 const temporadaAltura = Math.min(percentualAcumulado > 1 ? percentualAcumulado : percentualAcumulado * 100, 100);
@@ -68,8 +68,6 @@ document.getElementById("termometroTemporada").style.height = `${temporadaAltura
 
 document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
 document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
-  .catch(error => {
-    console.error("Erro ao carregar resumo:", error);
   });
 
 fetch(urlBase)
