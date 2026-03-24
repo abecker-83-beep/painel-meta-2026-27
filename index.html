@@ -9,27 +9,25 @@
 
   <h1>Acompanhamento Meta</h1>
 
-  <div class="kpis">
-    <div class="card">
-      <h3>Meta</h3>
-      <p id="meta"></p>
+ <div class="termometros">
+  <div class="termometro-card">
+    <h3>Mês Atual</h3>
+    <div class="termometro">
+      <div class="termometro-fill" id="termometroMes"></div>
+      <div class="termometro-bulbo"></div>
     </div>
-
-    <div class="card">
-      <h3>Faturamento</h3>
-      <p id="faturamento"></p>
-    </div>
-
-    <div class="card">
-      <h3>% Realizado</h3>
-      <p id="percentual"></p>
-    </div>
-
-    <div class="card">
-      <h3>Backlog</h3>
-      <p id="backlog"></p>
-    </div>
+    <p id="termometroMesTexto"></p>
   </div>
+
+  <div class="termometro-card">
+    <h3>Temporada</h3>
+    <div class="termometro">
+      <div class="termometro-fill" id="termometroTemporada"></div>
+      <div class="termometro-bulbo"></div>
+    </div>
+    <p id="termometroTemporadaTexto"></p>
+  </div>
+</div>
 
   <canvas id="grafico"></canvas>
 
