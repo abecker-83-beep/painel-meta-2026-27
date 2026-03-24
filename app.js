@@ -28,7 +28,9 @@ function formatarMoeda(valor) {
 }
 
 function formatarPercentual(valor) {
-  return `${(valor * 100).toFixed(2).replace(".", ",")}%`;
+  const numero = Number(valor) || 0;
+  const percentual = numero > 1 ? numero : numero * 100;
+  return `${percentual.toFixed(2).replace(".", ",")}%`;
 }
 
 fetch(urlResumo)
@@ -96,21 +98,25 @@ fetch(urlBase)
           }
         ]
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top"
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+     options: {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "top"
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        callback: function(value) {
+          return value.toLocaleString("pt-BR");
         }
       }
-    });
-  })
+    }
+  }
+}
   .catch(error => {
     console.error("Erro ao carregar base:", error);
   });
