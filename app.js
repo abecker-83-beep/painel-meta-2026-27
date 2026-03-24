@@ -1,6 +1,6 @@
 // COLE OS LINKS DO GOOGLE SHEETS AQUI
-const urlResumo = "COLE_LINK_RESUMO";
-const urlBase = "COLE_LINK_BASE";
+const urlResumo = https://docs.google.com/spreadsheets/d/1WlA0FCviEshPMnehQZFJKTy2MywYJQml2vymgtOGC1I/edit?gid=997277030#gid=997277030;
+const urlBase = https://docs.google.com/spreadsheets/d/1WlA0FCviEshPMnehQZFJKTy2MywYJQml2vymgtOGC1I/edit?gid=297052327#gid=297052327;
 
 function parseCSV(text) {
   return text.split("\n").map(l => l.split(","));
