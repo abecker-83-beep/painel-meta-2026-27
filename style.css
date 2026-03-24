@@ -1,60 +1,62 @@
 body {
-  font-family: Arial;
-  background: #f4f4f4;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #efefef;
+  margin: 0;
+  padding: 30px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
 }
 
-.kpis {
-  display: flex;
-  justify-content: space-around;
+.topo {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 30px;
+  align-items: start;
   margin-bottom: 30px;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 20%;
-  text-align: center;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-}
-
-#grafico {
-  width: 100%;
-  height: 420px !important;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
 .termometros {
   display: flex;
+  gap: 20px;
   justify-content: center;
-  gap: 60px;
-  margin: 30px 0 40px;
+}
+
+.termometro-card,
+.card,
+.grafico-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .termometro-card {
-  background: white;
   padding: 24px;
-  border-radius: 16px;
-  width: 240px;
+  width: 160px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.termometro-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .termometro {
   position: relative;
-  width: 60px;
-  height: 220px;
-  margin: 20px auto;
-  border: 6px solid #222;
+  width: 56px;
+  height: 210px;
+  margin: 0 auto;
+  border: 5px solid #222;
   border-radius: 40px;
-  background: #f3f3f3;
+  background: #f5f5f5;
   overflow: hidden;
 }
 
@@ -64,24 +66,65 @@ h1 {
   left: 0;
   width: 100%;
   height: 0%;
-  background: linear-gradient(to top, #2ECC71, #7DFF9B);
+  background: linear-gradient(to top, #2ECC71, #6ff0a4);
   transition: height 0.8s ease;
 }
 
 .termometro-bulbo {
   position: absolute;
-  bottom: -22px;
+  bottom: -18px;
   left: 50%;
   transform: translateX(-50%);
-  width: 82px;
-  height: 82px;
-  border: 6px solid #222;
+  width: 72px;
+  height: 72px;
+  border: 5px solid #222;
   border-radius: 50%;
   background: #2ECC71;
 }
 
 .termometro-card p {
-  font-size: 26px;
-  font-weight: 700;
-  margin-top: 18px;
+  margin-top: 24px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 28px;
+  text-align: center;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.grafico-card {
+  padding: 20px;
+}
+
+#grafico {
+  width: 100%;
+  height: 420px !important;
+}
+
+@media (max-width: 1100px) {
+  .topo {
+    grid-template-columns: 1fr;
+  }
+
+  .termometros {
+    justify-content: center;
+  }
 }
