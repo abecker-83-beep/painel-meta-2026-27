@@ -5,7 +5,7 @@ function parseCSV(text) {
   return text
     .trim()
     .split("\n")
-    .map(line => line.split(","));
+    .map(linha => linha.split(/,|;/));
 }
 
 function limparNumero(valor) {
@@ -41,8 +41,14 @@ fetch(urlResumo)
 
     rows.slice(1).forEach(r => {
       const chave = (r[0] || "").replace(/"/g, "").trim();
-      const valor = (r[1] || "").replace(/"/g, "").trim();
-      valores[chave] = valor;
+      const valor = (r[1] || "")
+  .replace(/"/g, "")
+  .replace("R$", "")
+  .replace(/\./g, "")
+  .replace(",", ".")
+  .trim();
+
+valores[chave] = valor;
     });
 
     document.getElementById("meta").innerText =
