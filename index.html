@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Meta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Acompanhamento Meta</h1>
+
+  <div class="kpis">
+    <div class="card">
+      <h3>Meta</h3>
+      <p id="meta"></p>
+    </div>
+
+    <div class="card">
+      <h3>Faturamento</h3>
+      <p id="faturamento"></p>
+    </div>
+
+    <div class="card">
+      <h3>% Realizado</h3>
+      <p id="percentual"></p>
+    </div>
+
+    <div class="card">
+      <h3>Backlog</h3>
+      <p id="backlog"></p>
+    </div>
+  </div>
+
+  <canvas id="grafico"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
