@@ -2,37 +2,65 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel Meta</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Acompanhamento Meta</h1>
+  <div class="container">
+    <h1>Acompanhamento Meta</h1>
 
- <div class="termometros">
-  <div class="termometro-card">
-    <h3>Mês Atual</h3>
-    <div class="termometro">
-      <div class="termometro-fill" id="termometroMes"></div>
-      <div class="termometro-bulbo"></div>
+    <div class="topo">
+      <div class="termometros">
+        <div class="termometro-card">
+          <h3>Mês Atual</h3>
+          <div class="termometro">
+            <div class="termometro-fill" id="termometroMes"></div>
+            <div class="termometro-bulbo"></div>
+          </div>
+          <p id="termometroMesTexto">0,00%</p>
+        </div>
+
+        <div class="termometro-card">
+          <h3>Temporada</h3>
+          <div class="termometro">
+            <div class="termometro-fill" id="termometroTemporada"></div>
+            <div class="termometro-bulbo"></div>
+          </div>
+          <p id="termometroTemporadaTexto">0,00%</p>
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="card">
+          <h3>Meta</h3>
+          <p id="meta">R$ 0,00</p>
+        </div>
+
+        <div class="card">
+          <h3>Faturamento</h3>
+          <p id="faturamento">R$ 0,00</p>
+        </div>
+
+        <div class="card">
+          <h3>% Realizado</h3>
+          <p id="percentual">0,00%</p>
+        </div>
+
+        <div class="card">
+          <h3>Backlog</h3>
+          <p id="backlog">R$ 0,00</p>
+        </div>
+      </div>
     </div>
-    <p id="termometroMesTexto"></p>
-  </div>
 
-  <div class="termometro-card">
-    <h3>Temporada</h3>
-    <div class="termometro">
-      <div class="termometro-fill" id="termometroTemporada"></div>
-      <div class="termometro-bulbo"></div>
+    <div class="grafico-card">
+      <canvas id="grafico"></canvas>
     </div>
-    <p id="termometroTemporadaTexto"></p>
   </div>
-</div>
-
-  <canvas id="grafico"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="app.js"></script>
-
 </body>
 </html>
