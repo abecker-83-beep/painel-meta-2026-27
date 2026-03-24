@@ -16,10 +16,25 @@ fetch(urlResumo)
       valores[r[0]] = r[1];
     });
 
-    document.getElementById("meta").innerText = valores["meta_mes"];
-    document.getElementById("faturamento").innerText = valores["faturamento_mes"];
-    document.getElementById("percentual").innerText = valores["percentual_mes"];
-    document.getElementById("backlog").innerText = valores["backlog"];
+    function formatarMoeda(valor) {
+  return "R$ " + Number(valor).toLocaleString("pt-BR");
+}
+
+function formatarPercentual(valor) {
+  return (Number(valor) * 100).toFixed(2) + "%";
+}
+
+document.getElementById("meta").innerText =
+  formatarMoeda(valores["meta_mes"]);
+
+document.getElementById("faturamento").innerText =
+  formatarMoeda(valores["faturamento_mes"]);
+
+document.getElementById("percentual").innerText =
+  formatarPercentual(valores["percentual_mes"].replace('"',''));
+
+document.getElementById("backlog").innerText =
+  formatarMoeda(valores["backlog"]);
   });
 
 // GRÁFICO
@@ -34,8 +49,13 @@ fetch(urlBase)
 
     rows.slice(1).forEach(r => {
       labels.push(r[0]);
-      meta.push(parseFloat(r[1].replace(",", ".")));
-      faturamento.push(parseFloat(r[3].replace(",", ".")) || 0);
+     function limparNumero(valor) {
+  if (!valor) return 0;
+  return Number(valor.replace(/\./g, "").replace(",", "."));
+}
+
+meta.push(limparNumero(r[1]));
+faturamento.push(limparNumero(r[3]));
     });
 
     new Chart(document.getElementById("grafico"), {
@@ -43,7 +63,18 @@ fetch(urlBase)
       data: {
         labels: labels,
         datasets: [
-          {
+  {
+    label: "Meta",
+    data: meta,
+    backgroundColor: "#1E5BFF"
+    borderRadius: 6
+  },
+  {
+    label: "Faturamento",
+    data: faturamento,
+    backgroundColor: "#2ECC71"
+  }
+]
             label: "Meta",
             data: meta
           },
