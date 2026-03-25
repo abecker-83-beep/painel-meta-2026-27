@@ -331,8 +331,12 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 
-  .logo-empresa {
-    width: 90px;
+ .logo-empresa {
+    width: 110px;
     height: 90px;
-  }
+    object-fit: contain;
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    border-radius: 12px;
+}
 }
