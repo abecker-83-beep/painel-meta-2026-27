@@ -10,9 +10,7 @@
   <div class="container">
     <header class="header">
       <div class="header-left">
-        <div class="logo-box" id="logoEmpresa">
-          LOGO
-        </div>
+        <img src="logo.jpg" alt="Logo da empresa" class="logo-empresa" />
       </div>
 
       <div class="header-center">
@@ -25,8 +23,8 @@
 
       <div class="header-right">
         <div class="header-info">
-          <span class="header-label">Painel Gerencial</span>
-          <span class="header-value" id="mesAtualTopo">Mês atual</span>
+          <span class="header-label">Mês Atual</span>
+          <span class="header-value" id="mesAtualTopo">--</span>
         </div>
       </div>
     </header>
@@ -35,6 +33,7 @@
       <div class="termometros-area">
         <div class="termometro-card">
           <h3>Mês Atual</h3>
+
           <div class="termometro-wrap">
             <div class="termometro-escala">
               <span>100%</span>
@@ -52,11 +51,13 @@
               <div class="termometro-bulbo" id="bulboMes"></div>
             </div>
           </div>
+
           <p class="termometro-texto" id="termometroMesTexto">0,00%</p>
         </div>
 
         <div class="termometro-card">
           <h3>Temporada</h3>
+
           <div class="termometro-wrap">
             <div class="termometro-escala">
               <span>100%</span>
@@ -74,6 +75,7 @@
               <div class="termometro-bulbo" id="bulboTemporada"></div>
             </div>
           </div>
+
           <p class="termometro-texto" id="termometroTemporadaTexto">0,00%</p>
         </div>
       </div>
@@ -105,7 +107,10 @@
       <div class="bloco-titulo">
         <h2>Meta x Faturamento</h2>
       </div>
-      <canvas id="grafico"></canvas>
+
+      <div class="chart-container">
+        <canvas id="grafico"></canvas>
+      </div>
     </section>
 
     <section class="tabela-card">
