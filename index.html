@@ -1,60 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel Meta</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-   <header class="header">
-  <h1>Acompanhamento Meta</h1>
-  <p class="subtitulo">Temporada 2026-27</p>
-  <p class="frase-topo" id="fraseMotivacional">“O impossível é só questão de opinião.”</p>
-</header>
-
-    <div class="termometros-box">
-  <div class="gauge-card">
-    <h3>Mês Atual</h3>
-    <div class="semi-gauge">
-      <div class="semi-gauge-fill" id="gaugeMes"></div>
-      <div class="semi-gauge-mask"></div>
-      <div class="semi-gauge-center">
-        <span id="termometroMesTexto">0,00%</span>
+    <header class="header">
+      <div class="header-left">
+        <div class="logo-box" id="logoEmpresa">
+          LOGO
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="gauge-card">
-    <h3>Temporada</h3>
-    <div class="semi-gauge">
-      <div class="semi-gauge-fill" id="gaugeTemporada"></div>
-      <div class="semi-gauge-mask"></div>
-      <div class="semi-gauge-center">
-        <span id="termometroTemporadaTexto">0,00%</span>
+      <div class="header-center">
+        <h1>Acompanhamento Meta</h1>
+        <p class="subtitulo">Temporada 2026-27</p>
+        <p class="frase-topo" id="fraseMotivacional">
+          “O impossível é só questão de opinião.”
+        </p>
       </div>
-    </div>
-  </div>
-</div>
 
-      <div class="cards-box">
-        <div class="card">
+      <div class="header-right">
+        <div class="header-info">
+          <span class="header-label">Painel Gerencial</span>
+          <span class="header-value" id="mesAtualTopo">Mês atual</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="painel-topo">
+      <div class="termometros-area">
+        <div class="termometro-card">
+          <h3>Mês Atual</h3>
+          <div class="termometro-wrap">
+            <div class="termometro-escala">
+              <span>100%</span>
+              <span>80%</span>
+              <span>60%</span>
+              <span>40%</span>
+              <span>20%</span>
+              <span>0%</span>
+            </div>
+
+            <div class="termometro-visual">
+              <div class="termometro-corpo">
+                <div class="termometro-preenchimento" id="termometroMes"></div>
+              </div>
+              <div class="termometro-bulbo" id="bulboMes"></div>
+            </div>
+          </div>
+          <p class="termometro-texto" id="termometroMesTexto">0,00%</p>
+        </div>
+
+        <div class="termometro-card">
+          <h3>Temporada</h3>
+          <div class="termometro-wrap">
+            <div class="termometro-escala">
+              <span>100%</span>
+              <span>80%</span>
+              <span>60%</span>
+              <span>40%</span>
+              <span>20%</span>
+              <span>0%</span>
+            </div>
+
+            <div class="termometro-visual">
+              <div class="termometro-corpo">
+                <div class="termometro-preenchimento" id="termometroTemporada"></div>
+              </div>
+              <div class="termometro-bulbo" id="bulboTemporada"></div>
+            </div>
+          </div>
+          <p class="termometro-texto" id="termometroTemporadaTexto">0,00%</p>
+        </div>
+      </div>
+
+      <div class="cards-area">
+        <div class="card kpi-card">
           <h3>Meta</h3>
           <p id="meta">R$ 0,00</p>
         </div>
 
-        <div class="card">
+        <div class="card kpi-card">
           <h3>Faturamento</h3>
           <p id="faturamento">R$ 0,00</p>
         </div>
 
-        <div class="card destaque">
+        <div class="card kpi-card destaque">
           <h3>% Realizado</h3>
           <p id="percentual">0,00%</p>
         </div>
 
-        <div class="card">
+        <div class="card kpi-card">
           <h3>Backlog</h3>
           <p id="backlog">R$ 0,00</p>
         </div>
@@ -90,6 +130,7 @@
         </table>
       </div>
     </section>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="app.js"></script>
