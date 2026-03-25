@@ -43,6 +43,15 @@ function corPorPercentual(valor) {
   return "#e74c3c";
 }
 
+function aplicarGauge(id, valor) {
+  const percentualVisual = Math.min(valor, 100);
+  const graus = (percentualVisual / 100) * 180;
+  const cor = corPorPercentual(valor);
+
+  document.getElementById(id).style.background =
+    `conic-gradient(${cor} 0deg, ${cor} ${graus}deg, #e6e6e6 ${graus}deg, #e6e6e6 180deg, transparent 180deg)`;
+}
+
 fetch(urlResumo)
   .then(res => {
     if (!res.ok) throw new Error("Falha ao carregar resumo");
@@ -69,23 +78,11 @@ fetch(urlResumo)
     document.getElementById("percentual").innerText = formatarPercentual(percentualMes);
     document.getElementById("backlog").innerText = formatarMoeda(backlog);
 
-    const mesAltura = Math.min(percentualMes, 100);
-    const temporadaAltura = Math.min(percentualAcumulado, 100);
+    aplicarGauge("gaugeMes", percentualMes);
+aplicarGauge("gaugeTemporada", percentualAcumulado);
 
-    const corMes = corPorPercentual(percentualMes);
-    const corTemporada = corPorPercentual(percentualAcumulado);
-
-    document.getElementById("termometroMes").style.height = `${mesAltura}%`;
-    document.getElementById("termometroTemporada").style.height = `${temporadaAltura}%`;
-
-    document.getElementById("termometroMes").style.background = `linear-gradient(to top, ${corMes}, #a8f0c6)`;
-    document.getElementById("termometroTemporada").style.background = `linear-gradient(to top, ${corTemporada}, #a8f0c6)`;
-
-    document.getElementById("bulboMes").style.background = corMes;
-    document.getElementById("bulboTemporada").style.background = corTemporada;
-
-    document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
-    document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
+document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
+document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
   })
   .catch(error => {
     console.error("Erro ao carregar resumo:", error);
