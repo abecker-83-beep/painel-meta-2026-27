@@ -14,7 +14,15 @@ function parseCSV(text) {
 }
 
 function limparNumero(valor) {
-  if (!valor) return 0;
+    if (!valor) return 0;
+
+    return Number(
+        valor
+            .toString()
+            .replace(/\./g, "") // remove milhar
+            .replace(",", ".")  // troca decimal
+    );
+}
 
   let texto = valor.toString()
     .replace(/"/g, "")
