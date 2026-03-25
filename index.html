@@ -30,53 +30,39 @@
     </header>
 
     <section class="painel-topo">
-      <div class="termometros-area">
-        <div class="termometro-card">
+      <div class="indicadores-box">
+        <div class="progresso-card">
           <h3>Mês Atual</h3>
-
-          <div class="termometro-wrap">
-            <div class="termometro-escala">
+          <div class="progress-vertical">
+            <div class="progress-track">
+              <div class="progress-fill" id="termometroMes"></div>
+            </div>
+            <div class="progress-marks">
               <span>100%</span>
-              <span>80%</span>
-              <span>60%</span>
-              <span>40%</span>
-              <span>20%</span>
+              <span>75%</span>
+              <span>50%</span>
+              <span>25%</span>
               <span>0%</span>
             </div>
-
-            <div class="termometro-visual">
-              <div class="termometro-corpo">
-                <div class="termometro-preenchimento" id="termometroMes"></div>
-              </div>
-              <div class="termometro-bulbo" id="bulboMes"></div>
-            </div>
           </div>
-
-          <p class="termometro-texto" id="termometroMesTexto">0,00%</p>
+          <p class="progress-texto" id="termometroMesTexto">0,00%</p>
         </div>
 
-        <div class="termometro-card">
+        <div class="progresso-card">
           <h3>Temporada</h3>
-
-          <div class="termometro-wrap">
-            <div class="termometro-escala">
+          <div class="progress-vertical">
+            <div class="progress-track">
+              <div class="progress-fill" id="termometroTemporada"></div>
+            </div>
+            <div class="progress-marks">
               <span>100%</span>
-              <span>80%</span>
-              <span>60%</span>
-              <span>40%</span>
-              <span>20%</span>
+              <span>75%</span>
+              <span>50%</span>
+              <span>25%</span>
               <span>0%</span>
             </div>
-
-            <div class="termometro-visual">
-              <div class="termometro-corpo">
-                <div class="termometro-preenchimento" id="termometroTemporada"></div>
-              </div>
-              <div class="termometro-bulbo" id="bulboTemporada"></div>
-            </div>
           </div>
-
-          <p class="termometro-texto" id="termometroTemporadaTexto">0,00%</p>
+          <p class="progress-texto" id="termometroTemporadaTexto">0,00%</p>
         </div>
       </div>
 
