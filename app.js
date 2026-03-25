@@ -14,15 +14,7 @@ function parseCSV(text) {
 }
 
 function limparNumero(valor) {
-    if (!valor) return 0;
-
-    return Number(
-        valor
-            .toString()
-            .replace(/\./g, "") // remove milhar
-            .replace(",", ".")  // troca decimal
-    );
-}
+  if (!valor) return 0;
 
   let texto = valor.toString()
     .replace(/"/g, "")
@@ -51,27 +43,27 @@ function formatarPercentual(valor) {
 }
 
 function corPorPercentual(valor) {
-  if (valor >= 100) return "#1fc46b";
+  if (valor >= 100) return "#20c06b";
   if (valor >= 80) return "#f1c40f";
   return "#e74c3c";
 }
 
 function gradientePorCor(cor) {
-  if (cor === "#1fc46b") return "linear-gradient(to top, #17b85f, #88ebb5)";
+  if (cor === "#20c06b") return "linear-gradient(to top, #18b35d, #8de7b7)";
   if (cor === "#f1c40f") return "linear-gradient(to top, #ddb400, #ffe37a)";
   return "linear-gradient(to top, #d8342d, #ff8f86)";
 }
 
-function aplicarBarraVertical(fillId, valor) {
+function aplicarBarraVertical(id, valor) {
   const numero = Number(valor) || 0;
   const percentualVisual = Math.min(numero, 100);
   const cor = corPorPercentual(numero);
 
-  const fill = document.getElementById(fillId);
-  if (!fill) return;
+  const el = document.getElementById(id);
+  if (!el) return;
 
-  fill.style.height = `${percentualVisual}%`;
-  fill.style.background = gradientePorCor(cor);
+  el.style.height = `${percentualVisual}%`;
+  el.style.background = gradientePorCor(cor);
 }
 
 function normalizarMes(texto) {
@@ -79,6 +71,26 @@ function normalizarMes(texto) {
     .toLowerCase()
     .replace("/", "-")
     .trim();
+}
+
+function formatarMesTopo(mes) {
+  const mapa = {
+    "mar-26": "mar.-26",
+    "abr-26": "abr.-26",
+    "mai-26": "mai.-26",
+    "jun-26": "jun.-26",
+    "jul-26": "jul.-26",
+    "ago-26": "ago.-26",
+    "set-26": "set.-26",
+    "out-26": "out.-26",
+    "nov-26": "nov.-26",
+    "dez-26": "dez.-26",
+    "jan-27": "jan.-27",
+    "fev-27": "fev.-27"
+  };
+
+  const chave = normalizarMes(mes);
+  return mapa[chave] || mes || "--";
 }
 
 let mesAtualResumo = "";
@@ -98,8 +110,7 @@ fetch(urlResumo)
       if (chave) valores[chave] = valor;
     });
 
-    const mesAtual = (valores["mes_atual"] || "").replace(/"/g, "").trim();
-    mesAtualResumo = mesAtual;
+    mesAtualResumo = (valores["mes_atual"] || "").replace(/"/g, "").trim();
 
     const metaMes = limparNumero(valores["meta_mes"]);
     const faturamentoMes = limparNumero(valores["faturamento_mes"]);
@@ -115,7 +126,7 @@ fetch(urlResumo)
     document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
     document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
 
-    document.getElementById("mesAtualTopo").innerText = mesAtual || "--";
+    document.getElementById("mesAtualTopo").innerText = formatarMesTopo(mesAtualResumo);
 
     aplicarBarraVertical("termometroMes", percentualMes);
     aplicarBarraVertical("termometroTemporada", percentualAcumulado);
@@ -133,8 +144,8 @@ fetch(urlBase)
     const rows = parseCSV(data);
 
     const labels = [];
-    const meta = [];
-    const faturamento = [];
+    const metas = [];
+    const faturamentos = [];
     const tbody = document.querySelector("#tabelaMetas tbody");
 
     rows.slice(1).forEach(r => {
@@ -178,8 +189,8 @@ fetch(urlBase)
 
       if (MESES_GRAFICO.includes(mes)) {
         labels.push(mesOriginal);
-        meta.push(metaValor);
-        faturamento.push(faturamentoValor);
+        metas.push(metaValor);
+        faturamentos.push(faturamentoValor);
       }
     });
 
@@ -190,17 +201,17 @@ fetch(urlBase)
           {
             type: "bar",
             label: "Meta",
-            data: meta,
-            backgroundColor: "#1e5bff",
+            data: metas,
+            backgroundColor: "#2d6cdf",
             borderRadius: 6,
             maxBarThickness: 30
           },
           {
             type: "line",
             label: "Faturamento",
-            data: faturamento,
-            borderColor: "#1fc46b",
-            backgroundColor: "#1fc46b",
+            data: faturamentos,
+            borderColor: "#2eb67d",
+            backgroundColor: "#2eb67d",
             tension: 0.35,
             fill: false,
             pointRadius: 4,
@@ -215,11 +226,6 @@ fetch(urlBase)
         plugins: {
           legend: {
             position: "top"
-          }
-        },
-        elements: {
-          bar: {
-            borderRadius: 6
           }
         },
         scales: {
