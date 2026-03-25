@@ -1,143 +1,245 @@
+:root {
+  --bg: #eef1f5;
+  --card: #ffffff;
+  --primary: #173f73;
+  --primary-2: #1e5bff;
+  --green: #1fc46b;
+  --yellow: #f1c40f;
+  --red: #e74c3c;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #d8dee8;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #efefef;
   margin: 0;
-  padding: 28px;
-  color: #111;
+  padding: 24px;
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+  color: var(--text);
 }
 
 .container {
-  max-width: 1450px;
+  max-width: 1480px;
   margin: 0 auto;
 }
 
+/* HEADER */
 .header {
-  text-align: center;
-  margin-bottom: 26px;
+  background: linear-gradient(135deg, #163b69, #1f5aa6);
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 180px 1fr 220px;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-.header h1 {
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-center h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 700;
 }
 
 .subtitulo {
-  margin-top: 8px;
-  color: #666;
-  font-size: 18px;
+  margin: 8px 0 0;
+  font-size: 20px;
+  opacity: 0.95;
 }
 
 .frase-topo {
-  margin-top: 14px;
-  font-size: 24px;
+  margin: 12px 0 0;
+  font-size: 22px;
   font-style: italic;
   font-family: Georgia, serif;
-  color: #222;
+  opacity: 0.98;
 }
 
-.topo-grid {
+.logo-box {
+  width: 120px;
+  height: 72px;
+  border: 2px dashed rgba(255, 255, 255, 0.55);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.header-info {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.header-label {
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.header-value {
+  display: block;
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* TOPO */
+.painel-topo {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 420px 1fr;
   gap: 24px;
   margin-bottom: 24px;
 }
 
-.termometros-box {
-  display: flex;
+.termometros-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.gauge-card,
+.termometro-card,
 .card,
 .grafico-card,
 .tabela-card {
-  background: #fff;
+  background: var(--card);
   border-radius: 18px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
 }
 
-.gauge-card {
-  flex: 1;
-  padding: 22px 18px;
+.termometro-card {
+  padding: 20px 14px 18px;
   text-align: center;
 }
 
-.gauge-card h3 {
-  margin: 0 0 18px;
-  font-size: 20px;
+.termometro-card h3 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  color: var(--primary);
 }
 
-.semi-gauge {
+.termometro-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 270px;
+}
+
+.termometro-escala {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 4px;
+}
+
+.termometro-visual {
   position: relative;
-  width: 180px;
-  height: 90px;
-  margin: 0 auto;
-  overflow: hidden;
+  width: 90px;
+  height: 270px;
 }
 
-.semi-gauge-fill {
+.termometro-corpo {
   position: absolute;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: conic-gradient(#2ecc71 0deg, #e6e6e6 0deg);
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 220px;
+  border: 5px solid #3b4d63;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #f3f7fb, #e5edf5);
+  overflow: hidden;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08);
+}
+
+.termometro-preenchimento {
+  position: absolute;
   left: 0;
-  transform: rotate(180deg);
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to top, #17b85f, #88ebb5);
+  transition: height 0.8s ease, background 0.8s ease;
+}
+
+.termometro-bulbo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 5px solid #3b4d63;
+  background: #1fc46b;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
   transition: background 0.8s ease;
 }
 
-.semi-gauge-mask {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  background: #fff;
-  border-radius: 50%;
-  top: 20px;
-  left: 20px;
-}
-
-.semi-gauge-center {
-  position: absolute;
-  width: 100%;
-  bottom: 8px;
-  left: 0;
-  text-align: center;
-  z-index: 2;
-}
-
-.semi-gauge-center span {
-  font-size: 24px;
+.termometro-texto {
+  margin: 8px 0 0;
+  font-size: 18px;
   font-weight: 700;
+  color: var(--text);
 }
 
-.cards-box {
+/* CARDS KPI */
+.cards-area {
   display: grid;
   grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 20px;
 }
 
-.card {
-  padding: 26px;
+.kpi-card {
+  padding: 24px 26px;
   text-align: center;
 }
 
-.card h3 {
-  margin: 0 0 14px;
-  font-size: 20px;
+.kpi-card h3 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  color: var(--primary);
 }
 
-.card p {
+.kpi-card p {
   margin: 0;
   font-size: 24px;
   font-weight: 700;
 }
 
-.card.destaque {
-  border-left: 8px solid #1e5bff;
+.kpi-card.destaque {
+  border-left: 8px solid var(--primary-2);
 }
 
+/* GRAFICO */
 .grafico-card,
 .tabela-card {
   padding: 20px;
@@ -146,7 +248,8 @@ body {
 
 .bloco-titulo h2 {
   margin: 0 0 18px;
-  font-size: 22px;
+  font-size: 28px;
+  color: var(--primary);
 }
 
 #grafico {
@@ -154,6 +257,7 @@ body {
   height: 420px !important;
 }
 
+/* TABELA */
 .tabela-wrapper {
   overflow-x: auto;
 }
@@ -165,7 +269,7 @@ table {
 }
 
 thead {
-  background: #0f3fb8;
+  background: linear-gradient(90deg, #123b73, #2458c6);
   color: #fff;
 }
 
@@ -173,37 +277,69 @@ th,
 td {
   padding: 12px 10px;
   text-align: center;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border);
 }
 
 tbody tr:nth-child(even) {
-  background: #f8f9fc;
+  background: #f8fbff;
 }
 
 tbody tr:hover {
-  background: #eef4ff;
+  background: #edf4ff;
 }
 
-@media (max-width: 1100px) {
-  .topo-grid {
+.linha-total {
+  background: #dfeafe !important;
+  font-weight: 700;
+}
+
+.linha-backlog {
+  background: #eefdf4 !important;
+  font-weight: 700;
+}
+
+.linha-mes-atual {
+  outline: 2px solid #1e5bff;
+  outline-offset: -2px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1200px) {
+  .painel-topo {
     grid-template-columns: 1fr;
   }
 
-  .termometros-box {
+  .header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .header-left,
+  .header-right {
     justify-content: center;
   }
+
+  .termometros-area {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
 
-@media (max-width: 700px) {
-  .cards-box {
-    grid-template-columns: 1fr;
+@media (max-width: 760px) {
+  body {
+    padding: 14px;
   }
 
-  .termometros-box {
-    flex-direction: column;
+  .header-center h1 {
+    font-size: 30px;
   }
 
   .frase-topo {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .cards-area,
+  .termometros-area {
+    grid-template-columns: 1fr;
   }
 }
