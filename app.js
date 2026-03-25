@@ -38,19 +38,30 @@ function formatarPercentual(valor) {
 }
 
 function corPorPercentual(valor) {
-  if (valor >= 100) return "#21bf73";
+  if (valor >= 100) return "#1fc46b";
   if (valor >= 80) return "#f1c40f";
   return "#e74c3c";
 }
 
-function aplicarGauge(id, valor) {
+function gradientePorCor(cor) {
+  if (cor === "#1fc46b") return "linear-gradient(to top, #17b85f, #88ebb5)";
+  if (cor === "#f1c40f") return "linear-gradient(to top, #ddb400, #ffe37a)";
+  return "linear-gradient(to top, #d8342d, #ff8f86)";
+}
+
+function aplicarTermometro(fillId, bulbId, valor) {
   const percentualVisual = Math.min(valor, 100);
-  const graus = (percentualVisual / 100) * 180;
   const cor = corPorPercentual(valor);
 
-  document.getElementById(id).style.background =
-    `conic-gradient(${cor} 0deg, ${cor} ${graus}deg, #e6e6e6 ${graus}deg, #e6e6e6 180deg, transparent 180deg)`;
+  const fill = document.getElementById(fillId);
+  const bulb = document.getElementById(bulbId);
+
+  fill.style.height = `${percentualVisual}%`;
+  fill.style.background = gradientePorCor(cor);
+  bulb.style.background = cor;
 }
+
+let mesAtualResumo = "";
 
 fetch(urlResumo)
   .then(res => {
@@ -67,6 +78,9 @@ fetch(urlResumo)
       if (chave) valores[chave] = valor;
     });
 
+    const mesAtual = (valores["mes_atual"] || "").replace(/"/g, "").trim();
+    mesAtualResumo = mesAtual;
+
     const metaMes = limparNumero(valores["meta_mes"]);
     const faturamentoMes = limparNumero(valores["faturamento_mes"]);
     const percentualMes = limparNumero(valores["percentual_mes"]);
@@ -78,11 +92,13 @@ fetch(urlResumo)
     document.getElementById("percentual").innerText = formatarPercentual(percentualMes);
     document.getElementById("backlog").innerText = formatarMoeda(backlog);
 
-    aplicarGauge("gaugeMes", percentualMes);
-aplicarGauge("gaugeTemporada", percentualAcumulado);
+    document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
+    document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
 
-document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
-document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
+    document.getElementById("mesAtualTopo").innerText = mesAtual || "Sem mês atual";
+
+    aplicarTermometro("termometroMes", "bulboMes", percentualMes);
+    aplicarTermometro("termometroTemporada", "bulboTemporada", percentualAcumulado);
   })
   .catch(error => {
     console.error("Erro ao carregar resumo:", error);
@@ -117,6 +133,19 @@ fetch(urlBase)
       faturamento.push(faturamentoValor);
 
       const tr = document.createElement("tr");
+
+      if (mes.toLowerCase().includes("total ytd")) {
+        tr.classList.add("linha-total");
+      }
+
+      if (mes.toLowerCase().includes("backlog")) {
+        tr.classList.add("linha-backlog");
+      }
+
+      if (mesAtualResumo && mes.toLowerCase() === mesAtualResumo.toLowerCase()) {
+        tr.classList.add("linha-mes-atual");
+      }
+
       tr.innerHTML = `
         <td>${mes}</td>
         <td>${formatarMoeda(metaValor)}</td>
@@ -126,6 +155,7 @@ fetch(urlBase)
         <td>${formatarPercentual(acumulado)}</td>
         <td>${formatarPercentual(projetado)}</td>
       `;
+
       tbody.appendChild(tr);
     });
 
@@ -137,20 +167,21 @@ fetch(urlBase)
             type: "bar",
             label: "Meta",
             data: meta,
-            backgroundColor: "#1E5BFF",
+            backgroundColor: "#1e5bff",
             borderRadius: 8,
-            maxBarThickness: 36
+            maxBarThickness: 34
           },
           {
             type: "line",
             label: "Faturamento",
             data: faturamento,
-            borderColor: "#21bf73",
-            backgroundColor: "#21bf73",
+            borderColor: "#1fc46b",
+            backgroundColor: "#1fc46b",
             tension: 0.35,
             fill: false,
             pointRadius: 4,
-            pointHoverRadius: 6
+            pointHoverRadius: 6,
+            borderWidth: 3
           }
         ]
       },
