@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Meta</title>
+  <title>Acompanhamento Meta</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,9 +16,7 @@
       <div class="header-center">
         <h1>Acompanhamento Meta</h1>
         <p class="subtitulo">Temporada 2026-27</p>
-        <p class="frase-topo" id="fraseMotivacional">
-          “O impossível é só questão de opinião.”
-        </p>
+        <p class="frase-topo">“O impossível é só questão de opinião.”</p>
       </div>
 
       <div class="header-right">
@@ -29,15 +27,17 @@
       </div>
     </header>
 
-    <section class="painel-topo">
-      <div class="indicadores-box">
-        <div class="progresso-card">
+    <section class="topo">
+      <div class="termometros">
+        <div class="termometro-card">
           <h3>Mês Atual</h3>
-          <div class="progress-vertical">
+
+          <div class="progress-wrap">
             <div class="progress-track">
               <div class="progress-fill" id="termometroMes"></div>
             </div>
-            <div class="progress-marks">
+
+            <div class="progress-scale">
               <span>100%</span>
               <span>75%</span>
               <span>50%</span>
@@ -45,16 +45,19 @@
               <span>0%</span>
             </div>
           </div>
-          <p class="progress-texto" id="termometroMesTexto">0,00%</p>
+
+          <p class="progress-value" id="termometroMesTexto">0,00%</p>
         </div>
 
-        <div class="progresso-card">
+        <div class="termometro-card">
           <h3>Temporada</h3>
-          <div class="progress-vertical">
+
+          <div class="progress-wrap">
             <div class="progress-track">
               <div class="progress-fill" id="termometroTemporada"></div>
             </div>
-            <div class="progress-marks">
+
+            <div class="progress-scale">
               <span>100%</span>
               <span>75%</span>
               <span>50%</span>
@@ -62,49 +65,44 @@
               <span>0%</span>
             </div>
           </div>
-          <p class="progress-texto" id="termometroTemporadaTexto">0,00%</p>
+
+          <p class="progress-value" id="termometroTemporadaTexto">0,00%</p>
         </div>
       </div>
 
-      <div class="cards-area">
-        <div class="card kpi-card">
+      <div class="kpis">
+        <div class="kpi-card">
           <h3>Meta</h3>
           <p id="meta">R$ 0,00</p>
         </div>
 
-        <div class="card kpi-card">
+        <div class="kpi-card">
           <h3>Faturamento</h3>
           <p id="faturamento">R$ 0,00</p>
         </div>
 
-        <div class="card kpi-card destaque">
+        <div class="kpi-card destaque">
           <h3>% Realizado</h3>
           <p id="percentual">0,00%</p>
         </div>
 
-        <div class="card kpi-card">
+        <div class="kpi-card">
           <h3>Backlog</h3>
           <p id="backlog">R$ 0,00</p>
         </div>
       </div>
     </section>
 
-    <section class="grafico-card">
-      <div class="bloco-titulo">
-        <h2>Meta x Faturamento</h2>
-      </div>
-
+    <section class="bloco">
+      <h2>Meta x Faturamento</h2>
       <div class="chart-container">
         <canvas id="grafico"></canvas>
       </div>
     </section>
 
-    <section class="tabela-card">
-      <div class="bloco-titulo">
-        <h2>Tabela Anual de Metas</h2>
-      </div>
-
-      <div class="tabela-wrapper">
+    <section class="bloco">
+      <h2>Tabela Anual de Metas</h2>
+      <div class="table-wrap">
         <table id="tabelaMetas">
           <thead>
             <tr>
