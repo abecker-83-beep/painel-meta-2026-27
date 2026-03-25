@@ -18,7 +18,7 @@
 
 body {
   margin: 0;
-  padding: 24px;
+  padding: 20px;
   background: var(--bg);
   font-family: Arial, sans-serif;
   color: var(--text);
@@ -35,12 +35,12 @@ body {
   color: #fff;
   border-radius: 18px;
   box-shadow: var(--shadow);
-  padding: 22px 24px;
+  padding: 18px 22px;
   display: grid;
-  grid-template-columns: 180px 1fr 220px;
-  gap: 20px;
+  grid-template-columns: 170px 1fr 180px;
+  gap: 18px;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .header-left,
@@ -55,47 +55,44 @@ body {
 
 .header-center h1 {
   margin: 0;
-  font-size: 40px;
+  font-size: 34px;
   font-weight: 700;
 }
 
 .subtitulo {
-  margin: 8px 0 0;
-  font-size: 20px;
-  opacity: 0.95;
+  margin: 6px 0 0;
+  font-size: 18px;
+  opacity: 0.96;
 }
 
 .frase-topo {
-  margin: 12px 0 0;
-  font-size: 22px;
+  margin: 10px 0 0;
+  font-size: 20px;
   font-style: italic;
   font-family: Georgia, serif;
   opacity: 0.98;
 }
 
-.logo-box {
+.logo-empresa {
   width: 120px;
-  height: 72px;
-  border: 2px dashed rgba(255, 255, 255, 0.55);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  letter-spacing: 1px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 8px;
 }
 
 .header-info {
   width: 100%;
   background: rgba(255, 255, 255, 0.12);
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   text-align: center;
 }
 
 .header-label {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.9;
@@ -104,22 +101,22 @@ body {
 .header-value {
   display: block;
   margin-top: 6px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
 }
 
 /* TOPO */
 .painel-topo {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
+  grid-template-columns: 340px 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
 }
 
 .termometros-area {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .termometro-card,
@@ -132,13 +129,13 @@ body {
 }
 
 .termometro-card {
-  padding: 20px 14px 18px;
+  padding: 16px 12px 14px;
   text-align: center;
 }
 
 .termometro-card h3 {
-  margin: 0 0 16px;
-  font-size: 22px;
+  margin: 0 0 12px;
+  font-size: 18px;
   color: var(--primary);
 }
 
@@ -146,24 +143,24 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 10px;
-  min-height: 270px;
+  gap: 8px;
+  min-height: 245px;
 }
 
 .termometro-escala {
-  height: 250px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
-  padding-top: 4px;
+  padding-top: 2px;
 }
 
 .termometro-visual {
   position: relative;
-  width: 90px;
-  height: 270px;
+  width: 84px;
+  height: 250px;
 }
 
 .termometro-corpo {
@@ -171,8 +168,8 @@ body {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 54px;
-  height: 220px;
+  width: 50px;
+  height: 205px;
   border: 5px solid #3b4d63;
   border-radius: 999px;
   background: linear-gradient(to bottom, #f3f7fb, #e5edf5);
@@ -195,8 +192,8 @@ body {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 88px;
-  height: 88px;
+  width: 82px;
+  height: 82px;
   border-radius: 50%;
   border: 5px solid #3b4d63;
   background: #1fc46b;
@@ -205,8 +202,8 @@ body {
 }
 
 .termometro-texto {
-  margin: 8px 0 0;
-  font-size: 18px;
+  margin: 6px 0 0;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
 }
@@ -214,47 +211,58 @@ body {
 /* CARDS KPI */
 .cards-area {
   display: grid;
-  grid-template-columns: repeat(2, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  align-content: start;
 }
 
 .kpi-card {
-  padding: 24px 26px;
-  text-align: center;
+  padding: 14px 16px;
+  text-align: left;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 92px;
 }
 
 .kpi-card h3 {
-  margin: 0 0 16px;
-  font-size: 22px;
+  font-size: 16px;
+  margin: 0 0 6px;
   color: var(--primary);
 }
 
 .kpi-card p {
-  margin: 0;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
+  margin: 0;
 }
 
 .kpi-card.destaque {
-  border-left: 8px solid var(--primary-2);
+  border-left: 4px solid var(--primary-2);
+  background: linear-gradient(90deg, #eef4ff, #ffffff);
 }
 
-/* GRAFICO */
+/* GRÁFICO */
 .grafico-card,
 .tabela-card {
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: 18px;
+  margin-bottom: 20px;
 }
 
 .bloco-titulo h2 {
-  margin: 0 0 18px;
-  font-size: 28px;
+  margin: 0 0 14px;
+  font-size: 22px;
   color: var(--primary);
+}
+
+.chart-container {
+  height: 280px;
 }
 
 #grafico {
   width: 100%;
-  height: 420px !important;
+  height: 100% !important;
 }
 
 /* TABELA */
@@ -265,7 +273,7 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 thead {
@@ -275,7 +283,7 @@ thead {
 
 th,
 td {
-  padding: 12px 10px;
+  padding: 10px 8px;
   text-align: center;
   border: 1px solid var(--border);
 }
@@ -320,26 +328,35 @@ tbody tr:hover {
   }
 
   .termometros-area {
-    max-width: 500px;
+    max-width: 520px;
     margin: 0 auto;
+  }
+
+  .cards-area {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 760px) {
   body {
-    padding: 14px;
+    padding: 12px;
   }
 
   .header-center h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .frase-topo {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .cards-area,
   .termometros-area {
     grid-template-columns: 1fr;
+  }
+
+  .logo-empresa {
+    width: 90px;
+    height: 90px;
   }
 }
