@@ -11,23 +11,21 @@ function parseCSV(text) {
 function limparNumero(valor) {
   if (!valor) return 0;
 
-  const texto = valor
-    .toString()
+  let texto = valor.toString()
     .replace(/"/g, "")
     .replace("R$", "")
     .replace(/\s/g, "")
     .trim();
 
-  // se vier percentual já pronto, ex: 117,74%
+  // trata percentual
   if (texto.includes("%")) {
-    return Number(
-      texto.replace("%", "").replace(/\./g, "").replace(",", ".")
-    ) || 0;
+    texto = texto.replace("%", "");
   }
 
-  return Number(
-    texto.replace(/\./g, "").replace(",", ".")
-  ) || 0;
+  // remove milhar e ajusta decimal
+  texto = texto.replace(/\./g, "").replace(",", ".");
+
+  return Number(texto) || 0;
 }
 
 function formatarMoeda(valor) {
@@ -38,9 +36,7 @@ function formatarMoeda(valor) {
 }
 
 function formatarPercentual(valor) {
-  const numero = Number(valor) || 0;
-  const percentual = numero > 1 ? numero : numero * 100;
-  return `${percentual.toFixed(2).replace(".", ",")}%`;
+  return `${Number(valor).toFixed(2).replace(".", ",")}%`;
 }
 
 fetch(urlResumo)
