@@ -104,11 +104,12 @@ body {
 
 /* TOPO */
 .topo {
+ .topo {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 16px;
+  gap: 12px;
   align-items: start;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .termometros {
@@ -213,8 +214,8 @@ body {
 
 /* BLOCOS */
 .bloco {
-  padding: 18px;
-  margin-bottom: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
 }
 
 .bloco h2 {
