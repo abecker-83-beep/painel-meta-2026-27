@@ -6,17 +6,24 @@ const MESES_GRAFICO = [
   "set-26", "out-26", "nov-26", "dez-26", "jan-27", "fev-27"
 ];
 
-function parseCSV(text) {
-  return Papa.parse(text.trim(), {
-    header: false,
-    skipEmptyLines: true
-  }).data;
+function parseResumoCSV(text) {
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .map(l => l.split(","));
+}
+
+function parseBaseCSV(text) {
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .map(l => l.split(";"));
 }
 
 function limparNumero(valor) {
-  if (!valor) return 0;
+  if (valor === undefined || valor === null || valor === "") return 0;
 
-  let texto = valor.toString()
+  let texto = String(valor)
     .replace(/"/g, "")
     .replace("R$", "")
     .replace(/\s/g, "")
@@ -95,133 +102,44 @@ function formatarMesTopo(mes) {
 
 let mesAtualResumo = "";
 
-fetch(urlBase)
-  .then(res => {
-    if (!res.ok) throw new Error("Falha ao carregar base");
-    return res.text();
-  })
+fetch(urlResumo)
+  .then(res => res.text())
   .then(data => {
-    const rows = parseCSV(data);
-
-    const labels = [];
-    const metas = [];
-    const faturamentos = [];
-    const tbody = document.querySelector("#tabelaMetas tbody");
+    const rows = parseResumoCSV(data);
+    const valores = {};
 
     rows.slice(1).forEach(r => {
-      const mesOriginal = (r[0] || "").replace(/"/g, "").trim();
-      if (!mesOriginal) return;
-
-      const mes = normalizarMes(mesOriginal);
-
-      const metaValor = limparNumero(r[1]);
-      const entradaPedidos = limparNumero(r[2]);
-      const faturamentoValor = limparNumero(r[3]);
-      const realizado = limparNumero(r[4]);
-      const acumulado = limparNumero(r[5]);
-      const projetado = limparNumero(r[6]);
-
-      const tr = document.createElement("tr");
-
-      if (mesOriginal.toLowerCase().includes("total ytd")) {
-        tr.classList.add("linha-total");
-      }
-
-      if (mesOriginal.toLowerCase().includes("backlog")) {
-        tr.classList.add("linha-backlog");
-      }
-
-      if (mesAtualResumo && normalizarMes(mesAtualResumo) === mes) {
-        tr.classList.add("linha-mes-atual");
-      }
-
-      tr.innerHTML = `
-        <td>${mesOriginal}</td>
-        <td>${formatarMoeda(metaValor)}</td>
-        <td>${formatarMoeda(entradaPedidos)}</td>
-        <td>${formatarMoeda(faturamentoValor)}</td>
-        <td>${formatarPercentual(realizado)}</td>
-        <td>${formatarPercentual(acumulado)}</td>
-        <td>${formatarPercentual(projetado)}</td>
-      `;
-
-      tbody.appendChild(tr);
-
-      // gráfico: só março a fevereiro
-      if (MESES_GRAFICO.includes(mes)) {
-        labels.push(mesOriginal);
-        metas.push(metaValor);
-        faturamentos.push(faturamentoValor);
-      }
+      const chave = (r[0] || "").replace(/"/g, "").trim();
+      const valor = (r[1] || "").replace(/"/g, "").trim();
+      if (chave) valores[chave] = valor;
     });
 
-    new Chart(document.getElementById("grafico"), {
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            type: "bar",
-            label: "Meta",
-            data: metas,
-            backgroundColor: "#2d6cdf",
-            borderRadius: 6,
-            maxBarThickness: 30
-          },
-          {
-            type: "line",
-            label: "Faturamento",
-            data: faturamentos,
-            borderColor: "#2eb67d",
-            backgroundColor: "#2eb67d",
-            tension: 0.35,
-            fill: false,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderWidth: 3
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top"
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              maxTicksLimit: 5,
-              callback: function(value) {
-                return value.toLocaleString("pt-BR");
-              }
-            },
-            grid: {
-              color: "#e8edf3"
-            }
-          },
-          x: {
-            grid: {
-              display: false
-            }
-          }
-        }
-      }
-    });
-  })
-  .catch(error => {
-    console.error("Erro ao carregar base:", error);
+    mesAtualResumo = (valores["mes_atual"] || "").replace(/"/g, "").trim();
+
+    const metaMes = limparNumero(valores["meta_mes"]);
+    const faturamentoMes = limparNumero(valores["faturamento_mes"]);
+    const percentualMes = limparNumero(valores["percentual_mes"]);
+    const percentualAcumulado = limparNumero(valores["percentual_acumulado"]);
+    const backlog = limparNumero(valores["backlog"]);
+
+    document.getElementById("meta").innerText = formatarMoeda(metaMes);
+    document.getElementById("faturamento").innerText = formatarMoeda(faturamentoMes);
+    document.getElementById("percentual").innerText = formatarPercentual(percentualMes);
+    document.getElementById("backlog").innerText = formatarMoeda(backlog);
+
+    document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
+    document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
+
+    document.getElementById("mesAtualTopo").innerText = formatarMesTopo(mesAtualResumo);
+
+    aplicarBarraVertical("termometroMes", percentualMes);
+    aplicarBarraVertical("termometroTemporada", percentualAcumulado);
   });
 
 fetch(urlBase)
-  .then(res => {
-    if (!res.ok) throw new Error("Falha ao carregar base");
-    return res.text();
-  })
+  .then(res => res.text())
   .then(data => {
-    const rows = parseCSV(data);
+    const rows = parseBaseCSV(data);
 
     const labels = [];
     const metas = [];
@@ -329,7 +247,4 @@ fetch(urlBase)
         }
       }
     });
-  })
-  .catch(error => {
-    console.error("Erro ao carregar base:", error);
   });
