@@ -54,19 +54,16 @@ function gradientePorCor(cor) {
   return "linear-gradient(to top, #d8342d, #ff8f86)";
 }
 
-function aplicarTermometro(fillId, bulbId, valor) {
+function aplicarBarraVertical(fillId, valor) {
   const numero = Number(valor) || 0;
   const percentualVisual = Math.min(numero, 100);
   const cor = corPorPercentual(numero);
 
   const fill = document.getElementById(fillId);
-  const bulb = document.getElementById(bulbId);
-
-  if (!fill || !bulb) return;
+  if (!fill) return;
 
   fill.style.height = `${percentualVisual}%`;
   fill.style.background = gradientePorCor(cor);
-  bulb.style.background = cor;
 }
 
 function normalizarMes(texto) {
@@ -112,8 +109,8 @@ fetch(urlResumo)
 
     document.getElementById("mesAtualTopo").innerText = mesAtual || "--";
 
-    aplicarTermometro("termometroMes", "bulboMes", percentualMes);
-    aplicarTermometro("termometroTemporada", "bulboTemporada", percentualAcumulado);
+    aplicarBarraVertical("termometroMes", percentualMes);
+    aplicarBarraVertical("termometroTemporada", percentualAcumulado);
   })
   .catch(error => {
     console.error("Erro ao carregar resumo:", error);
