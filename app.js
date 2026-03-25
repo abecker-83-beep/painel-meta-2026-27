@@ -17,12 +17,10 @@ function limparNumero(valor) {
     .replace(/\s/g, "")
     .trim();
 
-  // trata percentual
   if (texto.includes("%")) {
     texto = texto.replace("%", "");
   }
 
-  // remove milhar e ajusta decimal
   texto = texto.replace(/\./g, "").replace(",", ".");
 
   return Number(texto) || 0;
@@ -37,6 +35,12 @@ function formatarMoeda(valor) {
 
 function formatarPercentual(valor) {
   return `${Number(valor).toFixed(2).replace(".", ",")}%`;
+}
+
+function corPorPercentual(valor) {
+  if (valor >= 100) return "#21bf73";
+  if (valor >= 80) return "#f1c40f";
+  return "#e74c3c";
 }
 
 fetch(urlResumo)
@@ -54,8 +58,6 @@ fetch(urlResumo)
       if (chave) valores[chave] = valor;
     });
 
-    console.log("Resumo lido:", valores);
-
     const metaMes = limparNumero(valores["meta_mes"]);
     const faturamentoMes = limparNumero(valores["faturamento_mes"]);
     const percentualMes = limparNumero(valores["percentual_mes"]);
@@ -67,11 +69,20 @@ fetch(urlResumo)
     document.getElementById("percentual").innerText = formatarPercentual(percentualMes);
     document.getElementById("backlog").innerText = formatarMoeda(backlog);
 
-    const mesAltura = Math.min(percentualMes > 1 ? percentualMes : percentualMes * 100, 100);
-    const temporadaAltura = Math.min(percentualAcumulado > 1 ? percentualAcumulado : percentualAcumulado * 100, 100);
+    const mesAltura = Math.min(percentualMes, 100);
+    const temporadaAltura = Math.min(percentualAcumulado, 100);
+
+    const corMes = corPorPercentual(percentualMes);
+    const corTemporada = corPorPercentual(percentualAcumulado);
 
     document.getElementById("termometroMes").style.height = `${mesAltura}%`;
     document.getElementById("termometroTemporada").style.height = `${temporadaAltura}%`;
+
+    document.getElementById("termometroMes").style.background = `linear-gradient(to top, ${corMes}, #a8f0c6)`;
+    document.getElementById("termometroTemporada").style.background = `linear-gradient(to top, ${corTemporada}, #a8f0c6)`;
+
+    document.getElementById("bulboMes").style.background = corMes;
+    document.getElementById("bulboTemporada").style.background = corTemporada;
 
     document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
     document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
@@ -91,25 +102,37 @@ fetch(urlBase)
     const labels = [];
     const meta = [];
     const faturamento = [];
+    const tbody = document.querySelector("#tabelaMetas tbody");
 
     rows.slice(1).forEach(r => {
       const mes = (r[0] || "").replace(/"/g, "").trim();
       if (!mes) return;
 
+      const metaValor = limparNumero(r[1]);
+      const entradaPedidos = limparNumero(r[2]);
+      const faturamentoValor = limparNumero(r[3]);
+      const realizado = limparNumero(r[4]);
+      const acumulado = limparNumero(r[5]);
+      const projetado = limparNumero(r[6]);
+
       labels.push(mes);
-      meta.push(limparNumero(r[1]));
-      faturamento.push(limparNumero(r[3]));
+      meta.push(metaValor);
+      faturamento.push(faturamentoValor);
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${mes}</td>
+        <td>${formatarMoeda(metaValor)}</td>
+        <td>${formatarMoeda(entradaPedidos)}</td>
+        <td>${formatarMoeda(faturamentoValor)}</td>
+        <td>${formatarPercentual(realizado)}</td>
+        <td>${formatarPercentual(acumulado)}</td>
+        <td>${formatarPercentual(projetado)}</td>
+      `;
+      tbody.appendChild(tr);
     });
 
-    console.log("Base lida:", { labels, meta, faturamento });
-
-    const canvas = document.getElementById("grafico");
-    if (!canvas) {
-      console.error("Canvas do gráfico não encontrado");
-      return;
-    }
-
-    new Chart(canvas, {
+    new Chart(document.getElementById("grafico"), {
       data: {
         labels: labels,
         datasets: [
@@ -118,16 +141,16 @@ fetch(urlBase)
             label: "Meta",
             data: meta,
             backgroundColor: "#1E5BFF",
-            borderRadius: 6,
-            maxBarThickness: 40
+            borderRadius: 8,
+            maxBarThickness: 36
           },
           {
             type: "line",
             label: "Faturamento",
             data: faturamento,
-            borderColor: "#2ECC71",
-            backgroundColor: "#2ECC71",
-            tension: 0.3,
+            borderColor: "#21bf73",
+            backgroundColor: "#21bf73",
+            tension: 0.35,
             fill: false,
             pointRadius: 4,
             pointHoverRadius: 6
