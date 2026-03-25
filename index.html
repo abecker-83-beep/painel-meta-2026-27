@@ -7,32 +7,38 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
-    <h1>Acompanhamento Meta</h1>
+    <header class="header">
+      <h1>Acompanhamento Meta</h1>
+      <p class="subtitulo">Temporada 2026-27</p>
+    </header>
 
-    <div class="topo">
-      <div class="termometros">
+    <section class="topo-grid">
+      <div class="termometros-box">
         <div class="termometro-card">
           <h3>Mês Atual</h3>
-          <div class="termometro">
-            <div class="termometro-fill" id="termometroMes"></div>
-            <div class="termometro-bulbo"></div>
+          <div class="gauge">
+            <div class="gauge-track">
+              <div class="gauge-fill" id="termometroMes"></div>
+            </div>
+            <div class="gauge-bulb" id="bulboMes"></div>
           </div>
-          <p id="termometroMesTexto">0,00%</p>
+          <p class="termometro-valor" id="termometroMesTexto">0,00%</p>
         </div>
 
         <div class="termometro-card">
           <h3>Temporada</h3>
-          <div class="termometro">
-            <div class="termometro-fill" id="termometroTemporada"></div>
-            <div class="termometro-bulbo"></div>
+          <div class="gauge">
+            <div class="gauge-track">
+              <div class="gauge-fill" id="termometroTemporada"></div>
+            </div>
+            <div class="gauge-bulb" id="bulboTemporada"></div>
           </div>
-          <p id="termometroTemporadaTexto">0,00%</p>
+          <p class="termometro-valor" id="termometroTemporadaTexto">0,00%</p>
         </div>
       </div>
 
-      <div class="kpis">
+      <div class="cards-box">
         <div class="card">
           <h3>Meta</h3>
           <p id="meta">R$ 0,00</p>
@@ -43,7 +49,7 @@
           <p id="faturamento">R$ 0,00</p>
         </div>
 
-        <div class="card">
+        <div class="card destaque">
           <h3>% Realizado</h3>
           <p id="percentual">0,00%</p>
         </div>
@@ -53,11 +59,41 @@
           <p id="backlog">R$ 0,00</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="grafico-card">
+    <section class="grafico-card">
+      <div class="bloco-titulo">
+        <h2>Meta x Faturamento</h2>
+      </div>
       <canvas id="grafico"></canvas>
-    </div>
+    </section>
+
+    <section class="tabela-card">
+      <div class="bloco-titulo">
+        <h2>Tabela Anual de Metas</h2>
+      </div>
+
+      <div class="tabela-wrapper">
+        <table id="tabelaMetas">
+          <thead>
+            <tr>
+              <th>Mês</th>
+              <th>Meta</th>
+              <th>Entrada de Pedidos</th>
+              <th>Faturamento</th>
+              <th>% Realizado</th>
+              <th>% Acumulado</th>
+              <th>% Projetado</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="frase-card">
+      <p id="fraseMotivacional">“O impossível é só questão de opinião.”</p>
+    </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
