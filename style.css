@@ -19,12 +19,21 @@ body {
 .header h1 {
   margin: 0;
   font-size: 32px;
+  font-weight: 700;
 }
 
 .subtitulo {
   margin-top: 8px;
   color: #666;
   font-size: 18px;
+}
+
+.frase-topo {
+  margin-top: 14px;
+  font-size: 24px;
+  font-style: italic;
+  font-family: Georgia, serif;
+  color: #222;
 }
 
 .topo-grid {
@@ -39,70 +48,67 @@ body {
   gap: 20px;
 }
 
-.termometro-card,
+.gauge-card,
 .card,
 .grafico-card,
-.tabela-card,
-.frase-card {
+.tabela-card {
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-.termometro-card {
+.gauge-card {
   flex: 1;
-  padding: 22px 16px;
+  padding: 22px 18px;
   text-align: center;
 }
 
-.termometro-card h3 {
-  margin-top: 0;
-  margin-bottom: 18px;
+.gauge-card h3 {
+  margin: 0 0 18px;
   font-size: 20px;
 }
 
-.gauge {
+.semi-gauge {
   position: relative;
-  width: 78px;
-  margin: 0 auto;
-  padding-bottom: 26px;
-}
-
-.gauge-track {
-  width: 78px;
-  height: 230px;
-  border: 5px solid #1d1d1d;
-  border-radius: 999px;
-  background: linear-gradient(to bottom, #f7f7f7, #ececec);
-  overflow: hidden;
-  position: relative;
-}
-
-.gauge-fill {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(to top, #21bf73, #7bed9f);
-  transition: height 0.8s ease;
-}
-
-.gauge-bulb {
-  width: 90px;
+  width: 180px;
   height: 90px;
-  border: 5px solid #1d1d1d;
-  border-radius: 50%;
-  background: #2ecc71;
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.termometro-valor {
-  margin-top: 18px;
-  font-size: 18px;
+.semi-gauge-fill {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: conic-gradient(#2ecc71 0deg, #e6e6e6 0deg);
+  top: 0;
+  left: 0;
+  transform: rotate(180deg);
+  transition: background 0.8s ease;
+}
+
+.semi-gauge-mask {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: #fff;
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+}
+
+.semi-gauge-center {
+  position: absolute;
+  width: 100%;
+  bottom: 8px;
+  left: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+.semi-gauge-center span {
+  font-size: 24px;
   font-weight: 700;
 }
 
@@ -178,19 +184,6 @@ tbody tr:hover {
   background: #eef4ff;
 }
 
-.frase-card {
-  padding: 28px;
-  text-align: center;
-}
-
-.frase-card p {
-  margin: 0;
-  font-size: 34px;
-  font-style: italic;
-  font-family: Georgia, serif;
-  color: #111;
-}
-
 @media (max-width: 1100px) {
   .topo-grid {
     grid-template-columns: 1fr;
@@ -210,7 +203,7 @@ tbody tr:hover {
     flex-direction: column;
   }
 
-  .frase-card p {
-    font-size: 24px;
+  .frase-topo {
+    font-size: 20px;
   }
 }
