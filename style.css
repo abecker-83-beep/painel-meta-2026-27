@@ -29,7 +29,6 @@ body {
   margin: 0 auto;
 }
 
-/* HEADER */
 .header {
   display: grid;
   grid-template-columns: 170px 1fr 180px;
@@ -102,14 +101,12 @@ body {
   font-weight: 700;
 }
 
-/* TOPO */
 .topo {
- .topo {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 12px;
+  gap: 14px;
   align-items: start;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .termometros {
@@ -180,7 +177,6 @@ body {
   font-weight: 700;
 }
 
-/* KPIS */
 .kpis {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -212,10 +208,9 @@ body {
   background: linear-gradient(90deg, #eef4ff, #ffffff);
 }
 
-/* BLOCOS */
 .bloco {
   padding: 16px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .bloco h2 {
@@ -233,7 +228,6 @@ body {
   height: 100% !important;
 }
 
-/* TABELA */
 .table-wrap {
   overflow-x: auto;
 }
@@ -279,7 +273,6 @@ tbody tr:hover {
   outline-offset: -2px;
 }
 
-/* RESPONSIVO */
 @media (max-width: 1200px) {
   .header {
     grid-template-columns: 1fr;
