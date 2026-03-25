@@ -137,9 +137,12 @@ fetch(urlResumo)
   });
 
 fetch(urlBase)
-  .then(res => res.text())
+  .then(res => {
+    if (!res.ok) throw new Error("Falha ao carregar base");
+    return res.text();
+  })
   .then(data => {
-    const rows = parseBaseCSV(data);
+    const rows = parseCSV(data);
 
     const labels = [];
     const metas = [];
@@ -192,7 +195,12 @@ fetch(urlBase)
       }
     });
 
+    console.log("Labels gráfico:", labels);
+    console.log("Metas gráfico:", metas);
+    console.log("Faturamentos gráfico:", faturamentos);
+
     new Chart(document.getElementById("grafico"), {
+      type: "bar",
       data: {
         labels: labels,
         datasets: [
@@ -247,4 +255,7 @@ fetch(urlBase)
         }
       }
     });
+  })
+  .catch(error => {
+    console.error("Erro ao carregar base:", error);
   });
