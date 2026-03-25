@@ -8,35 +8,35 @@
 </head>
 <body>
   <div class="container">
-    <header class="header">
-      <h1>Acompanhamento Meta</h1>
-      <p class="subtitulo">Temporada 2026-27</p>
-    </header>
+   <header class="header">
+  <h1>Acompanhamento Meta</h1>
+  <p class="subtitulo">Temporada 2026-27</p>
+  <p class="frase-topo" id="fraseMotivacional">“O impossível é só questão de opinião.”</p>
+</header>
 
-    <section class="topo-grid">
-      <div class="termometros-box">
-        <div class="termometro-card">
-          <h3>Mês Atual</h3>
-          <div class="gauge">
-            <div class="gauge-track">
-              <div class="gauge-fill" id="termometroMes"></div>
-            </div>
-            <div class="gauge-bulb" id="bulboMes"></div>
-          </div>
-          <p class="termometro-valor" id="termometroMesTexto">0,00%</p>
-        </div>
-
-        <div class="termometro-card">
-          <h3>Temporada</h3>
-          <div class="gauge">
-            <div class="gauge-track">
-              <div class="gauge-fill" id="termometroTemporada"></div>
-            </div>
-            <div class="gauge-bulb" id="bulboTemporada"></div>
-          </div>
-          <p class="termometro-valor" id="termometroTemporadaTexto">0,00%</p>
-        </div>
+    <div class="termometros-box">
+  <div class="gauge-card">
+    <h3>Mês Atual</h3>
+    <div class="semi-gauge">
+      <div class="semi-gauge-fill" id="gaugeMes"></div>
+      <div class="semi-gauge-mask"></div>
+      <div class="semi-gauge-center">
+        <span id="termometroMesTexto">0,00%</span>
       </div>
+    </div>
+  </div>
+
+  <div class="gauge-card">
+    <h3>Temporada</h3>
+    <div class="semi-gauge">
+      <div class="semi-gauge-fill" id="gaugeTemporada"></div>
+      <div class="semi-gauge-mask"></div>
+      <div class="semi-gauge-center">
+        <span id="termometroTemporadaTexto">0,00%</span>
+      </div>
+    </div>
+  </div>
+</div>
 
       <div class="cards-box">
         <div class="card">
@@ -90,11 +90,6 @@
         </table>
       </div>
     </section>
-
-    <section class="frase-card">
-      <p id="fraseMotivacional">“O impossível é só questão de opinião.”</p>
-    </section>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="app.js"></script>
