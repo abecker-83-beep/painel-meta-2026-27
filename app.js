@@ -1,6 +1,11 @@
 const urlResumo = "https://docs.google.com/spreadsheets/d/1WlA0FCviEshPMnehQZFJKTy2MywYJQml2vymgtOGC1I/export?format=csv&gid=997277030";
 const urlBase = "https://docs.google.com/spreadsheets/d/1WlA0FCviEshPMnehQZFJKTy2MywYJQml2vymgtOGC1I/export?format=csv&gid=297052327";
 
+const MESES_GRAFICO = [
+  "mar-26", "abr-26", "mai-26", "jun-26", "jul-26", "ago-26",
+  "set-26", "out-26", "nov-26", "dez-26", "jan-27", "fev-27"
+];
+
 function parseCSV(text) {
   return text
     .trim()
@@ -50,15 +55,25 @@ function gradientePorCor(cor) {
 }
 
 function aplicarTermometro(fillId, bulbId, valor) {
-  const percentualVisual = Math.min(valor, 100);
-  const cor = corPorPercentual(valor);
+  const numero = Number(valor) || 0;
+  const percentualVisual = Math.min(numero, 100);
+  const cor = corPorPercentual(numero);
 
   const fill = document.getElementById(fillId);
   const bulb = document.getElementById(bulbId);
 
+  if (!fill || !bulb) return;
+
   fill.style.height = `${percentualVisual}%`;
   fill.style.background = gradientePorCor(cor);
   bulb.style.background = cor;
+}
+
+function normalizarMes(texto) {
+  return (texto || "")
+    .toLowerCase()
+    .replace("/", "-")
+    .trim();
 }
 
 let mesAtualResumo = "";
@@ -95,7 +110,7 @@ fetch(urlResumo)
     document.getElementById("termometroMesTexto").innerText = formatarPercentual(percentualMes);
     document.getElementById("termometroTemporadaTexto").innerText = formatarPercentual(percentualAcumulado);
 
-    document.getElementById("mesAtualTopo").innerText = mesAtual || "Sem mês atual";
+    document.getElementById("mesAtualTopo").innerText = mesAtual || "--";
 
     aplicarTermometro("termometroMes", "bulboMes", percentualMes);
     aplicarTermometro("termometroTemporada", "bulboTemporada", percentualAcumulado);
@@ -118,8 +133,10 @@ fetch(urlBase)
     const tbody = document.querySelector("#tabelaMetas tbody");
 
     rows.slice(1).forEach(r => {
-      const mes = (r[0] || "").replace(/"/g, "").trim();
-      if (!mes) return;
+      const mesOriginal = (r[0] || "").replace(/"/g, "").trim();
+      if (!mesOriginal) return;
+
+      const mes = normalizarMes(mesOriginal);
 
       const metaValor = limparNumero(r[1]);
       const entradaPedidos = limparNumero(r[2]);
@@ -128,26 +145,22 @@ fetch(urlBase)
       const acumulado = limparNumero(r[5]);
       const projetado = limparNumero(r[6]);
 
-      labels.push(mes);
-      meta.push(metaValor);
-      faturamento.push(faturamentoValor);
-
       const tr = document.createElement("tr");
 
-      if (mes.toLowerCase().includes("total ytd")) {
+      if (mesOriginal.toLowerCase().includes("total ytd")) {
         tr.classList.add("linha-total");
       }
 
-      if (mes.toLowerCase().includes("backlog")) {
+      if (mesOriginal.toLowerCase().includes("backlog")) {
         tr.classList.add("linha-backlog");
       }
 
-      if (mesAtualResumo && mes.toLowerCase() === mesAtualResumo.toLowerCase()) {
+      if (mesAtualResumo && normalizarMes(mesAtualResumo) === mes) {
         tr.classList.add("linha-mes-atual");
       }
 
       tr.innerHTML = `
-        <td>${mes}</td>
+        <td>${mesOriginal}</td>
         <td>${formatarMoeda(metaValor)}</td>
         <td>${formatarMoeda(entradaPedidos)}</td>
         <td>${formatarMoeda(faturamentoValor)}</td>
@@ -157,6 +170,12 @@ fetch(urlBase)
       `;
 
       tbody.appendChild(tr);
+
+      if (MESES_GRAFICO.includes(mes)) {
+        labels.push(mesOriginal);
+        meta.push(metaValor);
+        faturamento.push(faturamentoValor);
+      }
     });
 
     new Chart(document.getElementById("grafico"), {
@@ -168,8 +187,8 @@ fetch(urlBase)
             label: "Meta",
             data: meta,
             backgroundColor: "#1e5bff",
-            borderRadius: 8,
-            maxBarThickness: 34
+            borderRadius: 6,
+            maxBarThickness: 30
           },
           {
             type: "line",
@@ -193,13 +212,27 @@ fetch(urlBase)
             position: "top"
           }
         },
+        elements: {
+          bar: {
+            borderRadius: 6
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
+              maxTicksLimit: 5,
               callback: function(value) {
                 return value.toLocaleString("pt-BR");
               }
+            },
+            grid: {
+              color: "#e8edf3"
+            }
+          },
+          x: {
+            grid: {
+              display: false
             }
           }
         }
